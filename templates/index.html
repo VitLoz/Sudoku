@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Levels{% endblock %}
+{% block links %}
+<li><a href="{{ url_for('easy') }}">[ Easy ]</a></li>
+<li><a href="{{ url_for('normal') }}">[ Normal ]</a></li>
+<li><a href="{{ url_for('hard') }}">[ Hard ]</a></li>
+<li><a href="{{ url_for('evil') }}">[ Evil ]</a></li>
+{% endblock %}
+
+{% block alert_type %}
+
+{% for message in get_flashed_messages() %}
+   <div class="alert  alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <center><b>{{ message }}</b></center>
+      </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <table align="center" border="0">
+	<tr>
+	    <td align="left">
+		  <h2 align="center"><a href="{{ url_for('easy') }}"> Easy Level </a></h2> 
+		  <h3 align="center">36-49 <br /> visible cells</h3>
+		</td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td align="center">
+		  <h2 align="center"><a href="{{ url_for('normal') }}"> Normal Level </a></h2> 
+		  <h3 align="center">32-35 <br /> visible cells</h3>
+		</td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td align="right">
+		  <h2 align="center"><a href="{{ url_for('hard') }}"> Hard Level </a></h2> 
+		  <h3 align="center">28-31 <br /> visible cells</h3>
+		</td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		<td align="right">
+		  <h2 align="center"><a href="{{ url_for('evil') }}"> Evil Level </a></h2> 
+		  <h3 align="center">22-27 <br /> visible cells</h3>
+		</td>
+	<tr>
+	  <td colspan="7"><br /><br /><br /></td>
+	</tr>
+	</tr>
+	  <td colspan="7" align="center" > <img align="middle" src= {{ url_for("static", filename= "sudoku_title.gif") }} /> </td>
+	</tr>
+	<tr>
+	  <td colspan="7"><br /></td>
+	</tr>
+	</table>
+</div>
+{% endblock %}

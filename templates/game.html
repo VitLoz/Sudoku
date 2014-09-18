@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% block title %}Easy Level{% endblock %}
+
+
+{% block alert_type %}
+{% if alert_type == 1 %}
+
+{% for message in get_flashed_messages() %}
+   <div class="alert  alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <center><b>{{ message }}</b></center>
+      </div>
+{% endfor %}
+
+{% elif alert_type == 2 %}
+
+{% for message in get_flashed_messages() %}
+   <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <center><b>{{ message }}</b></center>
+   </div>
+{% endfor %}
+
+{% endif %}
+{% endblock %}
+
+
+{% block links %}
+
+{% if difficult == "easy" %}
+<li><a href="{{ url_for('easy') }}"> <font color="white">[ Easy ]</font></a></li>
+{% else %}
+<li><a href="{{ url_for('easy') }}">[ Easy ]</a></li>
+{% endif %}
+
+{% if difficult == "normal" %}
+<li><a href="{{ url_for('normal') }}"><font color="white">[ Normal ]</font></a></li>
+{% else %}
+<li><a href="{{ url_for('normal') }}">[ Normal ]</a></li>
+{% endif %}
+
+{% if difficult == "hard" %}
+<li><a href="{{ url_for('hard') }}"><font color="white">[ Hard ]</font></a></li>
+{% else %}
+<li><a href="{{ url_for('hard') }}">[ Hard ]</a></li>
+{% endif %}
+
+{% if difficult == "evil" %}
+<li><a href="{{ url_for('evil') }}"><font color="white">[ Evil ]</font></a></li>
+{% else %}
+<li><a href="{{ url_for('evil') }}">[ Evil ]</a></li>
+{% endif %}
+
+{% endblock %}
+{% block page_content %}
+<div class="page-header">
+<h2>
+
+{% if difficult == "easy" %}
+<form action= "{{ url_for('easy') }}" method="post">
+{% elif difficult == "normal" %}
+<form action= "{{ url_for('normal') }}" method="post">
+{% elif difficult == "hard" %}
+<form action= "{{ url_for('hard') }}" method="post">
+{% else %}
+<form action= "{{ url_for('evil') }}" method="post">
+{% endif %}
+
+{% set rowNumber= 0 %}
+{% set colNumber= 0 %}
+{% set answerIndex = -1 %}
+
+<table width="540" height="540" align="center" border="1">
+    {% for row in table %}
+	   {% if rowNumber % 3 == 0 %}
+	         <tr><td height="3" bgcolor="black" colspan="13"></tr>
+	   {% endif %}
+	       <tr align="center" height="60">
+	          {% for col in row %}
+		    	  {% if colNumber % 3 == 0 %}
+			         <td width="3" bgcolor="black"> </td>    
+			      {% endif %}
+			      
+		               <td width = "60">
+		                   {% if col > 0 %}
+		                         {{ col }}
+		                   {% else %}
+						      <font color="#428bca">
+		                         <select name="{{ rowNumber }}{{ colNumber }}">
+								 {% if col == 0 %}
+					                <option selected></option>
+								 {% else %}
+								    <option></option>
+								 {% endif %}
+								 
+							     {% if col == -1 %}
+					                <option selected>1</option>
+								 {% else %}
+								    <option>1</option>
+								 {% endif %}
+								 
+								 {% if col == -2 %}
+					                <option selected>2</option>
+								 {% else %}
+								    <option>2</option>
+								 {% endif %}
+								 
+								 {% if col == -3 %}
+					                <option selected>3</option>
+								 {% else %}
+								    <option>3</option>
+								 {% endif %}
+								 
+								 {% if col == -4 %}
+					                <option selected>4</option>
+								 {% else %}
+								    <option>4</option>
+								 {% endif %}
+								 
+								 {% if col == -5 %}
+					                <option selected>5</option>
+								 {% else %}
+								    <option>5</option>
+								 {% endif %}
+								 
+								 {% if col == -6 %}
+					                <option selected>6</option>
+								 {% else %}
+								    <option>6</option>
+								 {% endif %}
+								 
+								 {% if col == -7 %}
+					                <option selected>7</option>
+								 {% else %}
+								    <option>7</option>
+								 {% endif %}
+								 
+								 {% if col == -8 %}
+					                <option selected>8</option>
+								 {% else %}
+								    <option>8</option>
+								 {% endif %}
+								 
+								 {% if col == -9 %}
+					                <option selected>9</option>
+								 {% else %}
+								    <option>9</option>
+								 {% endif %}	
+								 					  
+			                     </select>
+							</font>
+		                   {% endif %}
+		               </td>
+				{% set colNumber = colNumber + 1 %}
+		      {% endfor %}
+			  <td width="3" bgcolor="black"> </td> 
+	        </tr>
+	 {% set rowNumber = rowNumber + 1 %}
+  {% endfor %}
+<tr><td height="3" bgcolor="black" colspan="13"></tr>
+</table>
+<br />
+</h2>
+
+<h4>
+<table align="center" width="540" border="2">
+  <tr align="center">
+     <td>
+	    Level
+	 </td>
+	 <td>
+	    Visible cells
+	 </td>
+	 <td>
+	    Hidden cells
+	 </td>
+	   <td>
+	    Available decisions
+     </td>
+  </tr>
+  <tr align="center">
+      <td> <b> {{ difficult }} </b> </td>
+	  <td> <b> {{ visibleCells }} </b> </td>
+	  <td> <b> {{ hiddenCells }} </b> </td>
+	  <td> <b> 1 </b></td>
+  </tr>
+</table>
+</h4>
+<br />
+
+{% if alert_type != 2 %}
+
+<input type="hidden" name="table" value="{{ table }}" />
+<input type="hidden" name="visibleCells" value="{{ visibleCells }}" />
+<input type="hidden" name="hiddenCells" value="{{ hiddenCells }}" />
+<center><input type="submit" value="Check"  align="middle"></center>
+
+{% else %}
+
+{% if difficult == "easy" %}
+<center><b><h4><a href="{{ url_for('easy') }}">[New Table]</a></h4></b></center>
+{% elif difficult == "normal" %}
+<center><b><h4><a href="{{ url_for('normal') }}">[New Table]</a></h4></b></center>
+{% elif difficult == "hard" %}
+<center><b><h4><a href="{{ url_for('hard') }}">[New Table]</a></h4></b></center>
+{% else %}
+<center><b><h4><a href="{{ url_for('evil') }}">[New Table]</a></h4></b></center>
+{% endif %}
+
+{% endif %}
+
+</form>
+
+</div>
+{% endblock %}
