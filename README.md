@@ -5,7 +5,7 @@ Online Sudoku
 http://sudokugame.herokuapp.com/
 
 Technologies:
-Language: Python, JavaScript, jQuery
+Language: Python, JavaScript, jQuery, Jinja2, SQLAlchemy
 Web Framework: Flask, Bootstrap
 Database: PostgreeSQL
 
