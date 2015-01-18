@@ -11,7 +11,7 @@ Database: PostgreeSQL
 
 Functionality:
 1. Four levels of complexity
-2. Registration
+2. Registration with e-mail congratulations
 3. Calculation of points
 4. Logout
 5. TOP 10
